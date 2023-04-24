@@ -1,0 +1,48 @@
+@import './variables.scss';
+
+* {
+  box-sizing: border-box;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  color: $color-main;
+  font-family: "Montserrat";
+}
+ul {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+li {
+  list-style-type: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+li.active a {
+  color: $hover;
+  background-color: $hover-background;
+}
+
+.link {
+  color: $color-main;
+  text-decoration: none;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  &:hover {
+    background-color: $border;
+    color: $hover;
+  }
+}
