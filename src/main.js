@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/router.js'
 import "@fontsource/montserrat"
-import 'material-design-icons-iconfont'
+import "./assets/icomoon/style.css"
 import store from './vuex/store.js'
 
 

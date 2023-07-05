@@ -1,22 +1,29 @@
-<template>
-    <div class="wrapper">        
-        <router-view/>
-    </div>
+<template>          
+    <router-view/>    
 </template>
 
 <script>
     export default {    
-        name: 'CatalogWrapper'        
+        name: 'MainWrapper',
+        mounted() {
+            this.appHeight();
+            window.addEventListener('resize', this.appHeight);
+        },
+        beforeUnmount() {
+            window.removeEventListener('resize', this.appHeight);
+        },
+        methods: {
+            appHeight() {
+            const doc = document.documentElement;
+            doc.style.setProperty('--app-height', `${window.innerHeight}px`);
+            },
+        },        
     }
 </script>
 
 <style lang="scss"> 
-.wrapper {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    @media (max-width: 1300px) {
-        width: 90%;
-    }
+:root {
+    --app-height: 100%;
 }
+
 </style>

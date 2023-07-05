@@ -1,8 +1,16 @@
-@import './variables.scss';
+@import "variables";
+// @font-face {
+//   font-family: 'Cryptocurrency';
+//   src: local('Cryptocurrency Unboxed'), local('Cryptocurrency-Unboxed'),
+//     url('../fonts/Cryptocurrency-No-01-Unboxed.woff2') format('woff2'),
+//     url('../fonts/Cryptocurrency-No-01-Unboxed.woff') format('woff'),
+//     url('../fonts/Cryptocurrency-No-01-Unboxed.ttf') format('truetype');
+//   font-weight: normal;
+//   font-style: normal;
+// }
 
 * {
   box-sizing: border-box;
-  font-size: 16px;
   margin: 0;
   padding: 0;
 }
@@ -13,36 +21,74 @@ body {
   padding: 0;
   font-size: 16px;
   line-height: 1.4;
-  color: $color-main;
+  color: $dark-color;
   font-family: "Montserrat";
-}
-ul {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-li {
-  list-style-type: none;
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-li.active a {
-  color: $hover;
-  background-color: $hover-background;
-}
-
-.link {
-  color: $color-main;
-  text-decoration: none;
-  padding: 20px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  &:hover {
-    background-color: $border;
-    color: $hover;
+  background-color: $dark-color;
+  &::-webkit-scrollbar {
+    width: 2px; 
+  }
+  &::-webkit-scrollbar-track {
+    background-color: darken($main-text, 70%);
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $special-text;
+    border-radius: 6px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: darken($main-text, 10%);
+  }      
+  @media (max-width: 1800px) {
+    font-size: 14px;
+  }
+  @media (max-width: 1450px) {
+    font-size: 12px;
   }
 }
+.wrapper {
+  padding: 90px 50px 0px 396px;
+  height: auto;
+  width: 100%;
+  @media (max-width: 1800px) {
+    padding: 90px 30px 0px 310px;
+  }
+  @media (max-width: 1450px) {
+    padding: 90px 30px 0px 280px;
+  } 
+  @media (max-width: 1270px) {
+    padding: 90px 30px 0px 30px;
+  }  
+  @media (max-width: 375px) {
+    padding: 90px 10px 0px 10px;
+  }
+}
+.btn {
+  font-weight: bold;
+  font-size: 12px;
+  text-transform: uppercase;
+  background: $green;    
+  //transition: all 0.25s ease;  
+  border-radius: 30px;
+  padding: 15px 20px;
+  color: $dark-color;
+  border: 1px solid $dark-color;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  min-width: 100px;
+  max-width: 220px;
+  margin: 0 auto;
+  cursor: pointer;
+  @media (max-width: 1800px) {
+    font-size: 12px;
+  }
+  @media (max-width: 1450px) {
+    font-size: 10px;
+  }
+  &:hover {
+    background: $main-btn-hover;
+  }
+}
+
