@@ -23,9 +23,35 @@
         </div>
         <div class="header__items">
             <div class="header__balance">
-            <p class="header__balance-text">Баланс аккаунта:<span>470 USDT</span></p>
-            <p class="header__balance-text">Баланс активных средств:<span>1700 USDT</span></p>
-        </div>
+                <div class="header__balance-item">
+                    <img src="../assets/images/icon_1.png" alt="icon_1" width="35">
+                    <div class="header__balance-content">
+                        <p class="header__balance-text">Общий баланс:</p>
+                        <p class="header__balance-text">2537 USDT</p>
+                    </div>
+                </div>
+                <div class="header__balance-item">
+                    <img src="../assets/images/icon.png" alt="icon_1" width="26">
+                    <div class="header__balance-content">
+                        <p class="header__balance-text">Свободный баланс:</p>
+                        <p class="header__balance-text">800 USDT</p>
+                    </div>
+                </div>
+                <div class="header__balance-item">
+                    <img src="../assets/images/icon_3.png" alt="icon_1" width="28">
+                    <div class="header__balance-content">
+                        <p class="header__balance-text">Активный баланс:</p>
+                        <p class="header__balance-text">1700 USDT</p>
+                    </div>
+                </div>
+                <div class="header__balance-item">
+                    <img src="../assets/images/icon_2.png" alt="icon_1" width="28">
+                    <div class="header__balance-content">
+                        <p class="header__balance-text">Партнерський баланс:</p>
+                        <p class="header__balance-text">37 USDT</p>
+                    </div>
+                </div>
+            </div>
         <div class="header__bell" @click="toggleBellWindow">
             <span class="header__icon-alarm icon-alarm"></span>
             <div class="header__added">
@@ -36,7 +62,7 @@
             <span class="header__icon-close icon-close"></span>
             <div class="header__bell-items">
                 <p class="header__bell-time">09:23</p>
-                <span class="header__bell-icon icon-clipboard"></span>
+                <span class="header__bell-icon icon-check-circle"></span>
                 <div class="header__bell-content">
                     <div class="header__bell-title">Поздравляем!</div>
                     <div class="header__bell-text">Активация торгового плана прошла успешно</div>
@@ -79,118 +105,111 @@
         </div>
       </div>
     </div>    
-  </template>
+</template>
   
-  <script>
-  import SidebarItem from './SidebarItem.vue';
-  
-  export default {
-    name: 'HeaderItem',
-    components: {
-      SidebarItem
+<script>
+import SidebarItem from './SidebarItem.vue';
+
+export default {
+  name: 'HeaderItem',
+  components: {
+    SidebarItem
+  },
+  data() {
+    return {
+      isSidebarOpen: false,
+      isBalanceWindowOpen: false,
+      isBellWindowOpen: false,
+      isPersonallWindowOpen: false
+    };
+  },
+  methods: {
+    toggleSidebar(event) {
+      event.stopPropagation();
+      this.isSidebarOpen = !this.isSidebarOpen;
+      this.isBalanceWindowOpen = false; 
+      this.isBellWindowOpen = false; 
+      this.isPersonallWindowOpen = false;
+      this.applyBlurEffect();
+      this.applyOverflowHidden();
     },
-    data() {
-      return {
-        isSidebarOpen: false,
-        isBalanceWindowOpen: false,
-        isBellWindowOpen: false,
-        isPersonallWindowOpen: false
-      };
+    applyOverflowHidden() {
+      if (this.isSidebarOpen) {
+        document.body.classList.add('hidden');
+      } else {
+        document.body.classList.remove('hidden');
+      }
     },
-    methods: {
-        toggleSidebar(event) {
-            event.stopPropagation();
-            this.isSidebarOpen = !this.isSidebarOpen;
-            this.isBalanceWindowOpen = false; 
-            this.isBellWindowOpen = false; 
-            this.isPersonallWindowOpen = false;
-            this.applyBlurEffect();
-            this.applyOverflowHidden();
-        },
-        applyOverflowHidden() {
-            if (this.isSidebarOpen) {
-            document.body.classList.add('hidden');
-            } else {
-            document.body.classList.remove('hidden');
-            }
-        },
-        applyBlurEffect() {
-            const blur = document.querySelector('.blur');
-            if (blur) {
-            blur.classList.toggle('header__blur', this.isSidebarOpen);
-            }
-        },
-        closeSidebar(event) {
-            const target = event.target;
-            const menuSidebar = this.$refs.menuSidebar;
-            const sidebarElement = menuSidebar ? menuSidebar.$el : null;
-            const balanceWindow = this.$refs.balanceWindow;
-            const bellWindow = this.$refs.bellWindow;
-            const personalWindow = this.$refs.personalWindow;
-            const header = this.$el;
-  
-            if (
-            !header.contains(target) ||
-            (sidebarElement && !sidebarElement.contains(target)) ||
-            (balanceWindow && !balanceWindow.contains(target)) ||
-            (bellWindow && !bellWindow.contains(target)) ||
-            (personalWindow && !personalWindow.contains(target))
-            ) {
-            this.isSidebarOpen = false;
-            this.isBalanceWindowOpen = false;
-            this.isBellWindowOpen = false;
-            this.isPersonallWindowOpen = false;
-            this.applyBlurEffect();
-            this.applyOverflowHidden();
-            }
-        },
-        toggleBalanceWindow(event) {
-            event.stopPropagation();
-            this.isBalanceWindowOpen = !this.isBalanceWindowOpen;
-            this.isBellWindowOpen = false; 
-            this.isPersonallWindowOpen = false;
-            this.isSidebarOpen = false;
-            this.applyBlurEffect();
-            this.applyOverflowHidden();
-        },
-        toggleBellWindow(event) {
-            event.stopPropagation();
-            this.isBellWindowOpen = !this.isBellWindowOpen;           
-            this.isBalanceWindowOpen = false; 
-            this.isPersonallWindowOpen = false; 
-            this.isSidebarOpen = false;
-            this.applyBlurEffect();
-            this.applyOverflowHidden();
-            const headerAddedElement = document.querySelector('.header__added');
-            if (headerAddedElement) {
-                headerAddedElement.style.display =  'none';
-            }
-        },
-        togglePersonallWindow(event) {
-            event.stopPropagation();
-            this.isPersonallWindowOpen = !this.isPersonallWindowOpen;
-            this.isBalanceWindowOpen = false; 
-            this.isBellWindowOpen = false; 
-            this.isSidebarOpen = false;
-            this.applyBlurEffect();
-            this.applyOverflowHidden();
-        },
-        closeBurger() {
-            this.isSidebarOpen = false;
-            const headerBurgerElement = document.querySelector('.header__burger');
-            if (headerBurgerElement) {
-                headerBurgerElement.classList.remove('open');
-            }
-        }
+    applyBlurEffect() {
+      const blur = document.querySelector('.blur');
+      if (blur) {
+        blur.classList.toggle('header__blur', this.isSidebarOpen);
+      }
     },
-    mounted() {
-      document.body.addEventListener('click', this.closeSidebar);
+    closeSidebar(event) {
+      const target = event.target;
+      const menuSidebar = this.$refs.menuSidebar;
+      const sidebarElement = menuSidebar ? menuSidebar.$el : null;
+      const balanceWindow = this.$refs.balanceWindow;
+      const bellWindow = this.$refs.bellWindow;
+      const personalWindow = this.$refs.personalWindow;
+      const header = this.$el;
+
+      if (
+        !header.contains(target) ||
+        (sidebarElement && !sidebarElement.contains(target)) ||
+        (balanceWindow && !balanceWindow.contains(target)) ||
+        (bellWindow && !bellWindow.contains(target)) ||
+        (personalWindow && !personalWindow.contains(target))
+      ) {
+        this.isSidebarOpen = false;
+        this.isBalanceWindowOpen = false;
+        this.isBellWindowOpen = false;
+        this.isPersonallWindowOpen = false;
+        this.applyBlurEffect();
+        this.applyOverflowHidden();
+      }
     },
-    beforeUnmount() {
-      document.body.removeEventListener('click', this.closeSidebar);
-    }
-  };
-  </script>
+    toggleBalanceWindow(event) {
+      event.stopPropagation();
+      this.isBalanceWindowOpen = !this.isBalanceWindowOpen;
+      this.isBellWindowOpen = false; 
+      this.isPersonallWindowOpen = false;
+      this.isSidebarOpen = false;
+      this.applyBlurEffect();
+      this.applyOverflowHidden();
+    },
+    toggleBellWindow(event) {
+      event.stopPropagation();
+      this.isBellWindowOpen = !this.isBellWindowOpen;           
+      this.isBalanceWindowOpen = false; 
+      this.isPersonallWindowOpen = false; 
+      this.isSidebarOpen = false;
+      this.applyBlurEffect();
+      this.applyOverflowHidden();
+      const headerAddedElement = document.querySelector('.header__added');
+      if (headerAddedElement) {
+        headerAddedElement.style.display =  'none';
+      }
+    },
+    togglePersonallWindow(event) {
+      event.stopPropagation();
+      this.isPersonallWindowOpen = !this.isPersonallWindowOpen;
+      this.isBalanceWindowOpen = false; 
+      this.isBellWindowOpen = false; 
+      this.isSidebarOpen = false;
+      this.applyBlurEffect();
+      this.applyOverflowHidden();
+    },
+  },
+  mounted() {
+    document.body.addEventListener('click', this.closeSidebar);
+  },
+  beforeUnmount() {
+    document.body.removeEventListener('click', this.closeSidebar);
+  }
+};
+</script>
 
 <style lang="scss">
     .header {
@@ -210,9 +229,13 @@
         z-index: 999;
         @media (max-width: 1800px) {
             padding: 0 30px;
+            font-size: 0.875rem;
+        }
+        @media (max-width: 1450px) {
+            font-size: 0.75rem;
+            height: 60px;
         }
         @media (max-width: 600px) {
-            height: 70px;
             padding: 20px 10px;
         }
         @media (max-width: 375px) {
@@ -220,6 +243,9 @@
         }
         &__logo {
             width: 150px;
+            @media (max-width: 1450px) {
+                width: 120px;
+            }
             &--desktop {
                 @media (max-width: 1269px) {
                 display: none;
@@ -229,7 +255,7 @@
             @media (min-width: 1270px) {
                 display: none;
             }
-                width: 36px;
+                width: 32px;
             }
             @media (max-width: 600px) {
                 width: 28px;
@@ -243,8 +269,16 @@
                 gap: 20px;
             }
         }
-        &__balance span {
-            padding-left: 5px;
+        &__balance  {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+        &__balance-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         &__icon-wrap {
             width: 40px;
@@ -254,9 +288,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 1px solid $green;
             cursor: pointer;      
             &:hover {
                 background: $main-btn-hover;
+                border: 1px solid $main-text;
+            }
+            @media (max-width: 1450px) {
+                width: 38px;
+                height: 38px;
             }
             @media (max-width: 600px) {
                 width: 34px;
@@ -414,6 +454,9 @@
             filter: $filter;
             @media (max-width: 1800px) {
                 right: 30px;
+            }            
+            @media (max-width: 1280px) {
+                width: 255px;
             }
             @media (max-width: 1024px) {
                 filter: none;
@@ -536,6 +579,7 @@
             &:hover {
                 opacity: 0.9;
                 background: $circle;
+                border: none;
             }
         }
         &__logout-btn.btn {

@@ -111,5 +111,8 @@ watch(chartWidth, () => {
   @media (min-width: 2560px) {
     padding: 60px 20px;  
   }
+  @media (max-width: 1450px) {
+    padding: 10px 20px;  
+  }
 }
 </style>

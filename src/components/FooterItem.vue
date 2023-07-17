@@ -22,16 +22,20 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 90px;
+        height: 70px;
         color: $main-text;
         background-color: $dark-color;
         padding: 0 50px 0 396px;
         width: 100%;
+        position: fixed;
+        bottom: 0;
+        z-index: 2;
         @media (max-width: 1800px) {
             padding: 0 30px 0 310px;
         }
         @media (max-width: 1450px) {
             padding: 0 30px 0 280px;
+            position: unset;
         }
         @media (max-width: 1270px) {
             padding: 0 30px;
@@ -79,9 +83,6 @@
             @media (max-width: 700px) {
                 padding: 5px 0;
             }
-        }
-        @media (min-width: 2400px) {
-            padding-top: 40px; 
         }
         &__text {
             @media (max-width: 700px) {

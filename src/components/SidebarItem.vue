@@ -20,7 +20,7 @@
         <li :class="{ 'active': isCurrentRoute('/partnership') }">
           <router-link v-on:click="closeSidebar" @click="activateMenu('/partnership')"
             class="sidebar__link" to="/partnership"
-          ><span class="icon-clipboard sidebar__icon"></span>Партнерская программа</router-link>
+          ><span class="icon-user-check sidebar__icon"></span>Партнерская программа</router-link>
         </li>
         <li :class="{ 'active': isCurrentRoute('/withdrawal') }">
           <router-link v-on:click="closeSidebar" @click="activateMenu('/withdrawal')"
@@ -73,11 +73,23 @@ export default {
     },
     closeSidebar() {
       this.$refs.menuSidebar.classList.remove('sidebar--open');
-      this.isSidebarOpen = false;
+      //this.isSidebarOpen = false;
+      this.closeBurger();
+      this.applyOverflowHidden();
     },
-    // closeBurger() {
-    //   this.$emit('close-burger');
-    // }
+    closeBurger() {
+      const headerBurgerElement = document.querySelector('.header__burger');
+      if (headerBurgerElement) {
+        headerBurgerElement.classList.remove('open');
+      }
+    },
+    applyOverflowHidden() {
+      if (this.isSidebarOpen) {
+        document.body.classList.add('hidden');
+      } else {
+        document.body.classList.remove('hidden');
+      }
+    }
   },
 };
 </script>
@@ -96,9 +108,12 @@ export default {
     @media (max-width: 1800px) {
       width: 280px;
     }
+    @media (max-width: 1450px) {
+      width: 250px;
+      top: 60px;
+    }
     @media (max-width: 1270px) {
       position: fixed;
-      top: 90px;
       left: -300px;
       transition: left 0.3s ease;
       @media (max-width: 425px) {
@@ -110,14 +125,8 @@ export default {
         left: 0;
       }
     } 
-    @media (max-width: 1450px) {
-      width: 250px;
-    }       
-    @media (max-width: 600px) {
-      top: 70px;
-    }
     &__btn.btn {
-        margin-top: 30px;
+      margin-top: 30px;
     }
     &__link {
       display: flex;
@@ -129,9 +138,12 @@ export default {
       transition: color 0.3s ease;
       color: $main-text;
       font-weight: bold;
-      font-size: 1rem;
       @media (max-width: 1800px) {
         padding: 15px 30px;
+        font-size: 0.875rem;
+      }
+      @media (max-width: 1450px) {
+        font-size: 0.75rem;
       }
       @media (max-width: 1400px) {
         padding: 15px 20px;

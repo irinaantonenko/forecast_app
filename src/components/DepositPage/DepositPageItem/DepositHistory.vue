@@ -1,19 +1,23 @@
 <template>
   <div class="deposit-history">
     <h3 class="deposit-history__subtitle">История</h3>
-    <div class="deposit-history__item-title">
-      <p class="deposit-history__text deposit-history__col">Дата депозита</p>
-      <p class="deposit-history__text deposit-history__col">Способ оплаты</p>
-      <p class="deposit-history__text deposit-history__col">Сумма депозита</p>
-      <p class="deposit-history__text deposit-history__col">Статус транзакции</p>
-      <p class="deposit-history__text deposit-history__col">ID транзакции</p>
-    </div>
-    <div class="deposit-history__item" v-for="(item, index) in displayedItems" :key="index">
-      <p class="deposit-history__text deposit-history__col">{{ item.date }}</p>
-      <p class="deposit-history__text deposit-history__col"><img class="deposit-history__finance-img" src="../../../assets/images/tether.png" alt="ustd">Tether</p>
-      <p class="deposit-history__text deposit-history__col">{{ item.money }}</p>
-      <p class="deposit-history__text deposit-history__col">{{ item.status }}<span :class="getStatusClass(item.status)" class="deposit-history__status"></span></p>
-      <p class="deposit-history__text deposit-history__col">{{ item.id }}</p>
+    <div class="deposit-history__wrap">
+      <div class="deposit-history__table">
+        <div class="deposit-history__item-title">
+          <p class="deposit-history__text deposit-history__col">Дата депозита</p>
+          <p class="deposit-history__text deposit-history__col">Способ оплаты</p>
+          <p class="deposit-history__text deposit-history__col">Сумма депозита</p>
+          <p class="deposit-history__text deposit-history__col">Статус транзакции</p>
+          <p class="deposit-history__text deposit-history__col">ID транзакции</p>
+        </div>
+        <div class="deposit-history__item" v-for="(item, index) in displayedItems" :key="index">
+          <p class="deposit-history__text deposit-history__col">{{ item.date }}</p>
+          <p class="deposit-history__text deposit-history__col"><img class="deposit-history__finance-img" src="../../../assets/images/tether.png" alt="ustd">Tether</p>
+          <p class="deposit-history__text deposit-history__col">{{ item.money }}</p>
+          <p class="deposit-history__text deposit-history__col">{{ item.status }}<span :class="getStatusClass(item.status)" class="deposit-history__status"></span></p>
+          <p class="deposit-history__text deposit-history__col">{{ item.id }}</p>
+        </div>
+      </div>
     </div>
     <div class="deposit-history__item-footer">
       <div class="deposit-history__dropdown-wrap">
@@ -124,13 +128,25 @@ export default {
     width: 100%;
     background-color: $item-special-bg;
     border-radius: 8px;
-    margin-top: 20px;
+    @media (min-width: 2560px) {
+      min-height: 700px;
+    }
+    &__wrap {  
+      @media (max-width: 700px) {
+        overflow: auto;
+      }
+    }
+    &__table {      
+      @media (max-width: 700px) {
+        width: 770px;
+      }
+    }
     &__subtitle {       
       font-weight: bold;
       font-size: 20px;
       white-space: nowrap;
       min-height: 65px;
-      padding: 20px;
+      padding: 15px;
       border-bottom: 1px solid $dark-color;
       @media (min-width: 2560px) {
         min-height: 100px;  
@@ -151,23 +167,27 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px;
+      padding: 15px;
     }
     &__item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px;
+      padding: 15px;
+      border-bottom: 1px solid $dark-color;
+      @media (min-width: 2560px) {
+        padding: 30px 15px;
+      }      
+      @media (max-width: 1280px) {
+        padding: 10px;
+      }
     }
     &__col {
       width: calc(100% / 5);
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-    &__item {
-      padding: 20px;
-      border-bottom: 1px solid $dark-color;
+      position: relative;
     }
     &__finance-img {
       width: 23px;
@@ -177,6 +197,10 @@ export default {
       display: flex;
       align-items: center;
       gap: 15px;
+      @media (max-width: 425px) {
+        justify-content: space-between;
+        width: 100%;
+      }
     }
     &__dropdown {
       position: relative;
@@ -196,10 +220,15 @@ export default {
       color: $main-text;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 5px;
       font-size: 14px;
       margin: 0;
       cursor: pointer;
+      min-width: 80px;
+      @media (max-width: 1280px) {
+        font-size: 0.7rem;
+      }
     }
     &__dropdown-content {
       display: none;
@@ -207,7 +236,7 @@ export default {
       background-color: $block-grey;
       color: $main-text;
       width: 100%;
-      z-index: 1;
+      z-index: 444;
       border-radius: 8px;
       cursor: pointer;
       & a {
@@ -224,9 +253,13 @@ export default {
     }
     &__item-footer {
       display: flex;
-      padding: 20px;
+      padding: 15px;
       align-items: center;
       justify-content: space-between;
+      @media (max-width: 425px) {
+        flex-direction: column;
+        gap: 10px;
+      }
     }
     &__page-btn {
       background-color: $dark-color;
@@ -242,10 +275,16 @@ export default {
       &:disabled:nth-child(1), &:disabled:nth-child(3) {
         background-color: $block-grey;
         cursor: not-allowed;
+      }      
+      @media (max-width: 1280px) {
+        font-size: 0.7rem;
       }
     }    
     &__arrow {
-      font-size: 20px;
+      font-size: 20px;      
+      @media (max-width: 1280px) {
+        font-size: 14px;
+      }
     }
     &__page-btns {
       display: flex;
@@ -254,10 +293,14 @@ export default {
     }
     &__status {
       display: inline-block;
-      width: 14px;
+      width: 14px;  
       height: 14px;
       border-radius: 50%;
-      margin-left: 5px;
+      position: absolute;
+      right: 10%;
+      @media (max-width: 1024px) {
+        right: 5%;
+      }
     }
     &__status-green {
       background-color: $active;

@@ -1,9 +1,7 @@
 <template>
   <header-item/>
   <sidebar-item/>  
-  <div :class="{ 'page-blur': isSidebarOpen }">
-    <main-wrapper/>
-  </div>
+  <main-wrapper/>  
 </template>
 
 <script>

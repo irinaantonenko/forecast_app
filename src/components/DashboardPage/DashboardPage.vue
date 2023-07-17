@@ -191,7 +191,17 @@
   .dashboard {
     width: 100%;
     height: auto;
-    overflow: auto;
+    overflow: auto; 
+    min-height: var(--app-height);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    @media (max-width: 1800px) {
+        font-size: 0.875rem;
+    }
+    @media (max-width: 1450px) {
+        font-size: 0.75rem;
+    }
     &__header {
         color: $main-text;
         display: flex;
@@ -209,6 +219,9 @@
         }
         @media (max-width: 1450px) {
             font-size: 18px;
+        }
+        @media (max-width: 1280px) {
+            font-size: 16px;
         }
     }
     &__items {
@@ -268,7 +281,10 @@
             }
             @media (max-width: 1800px) {
                 min-height: 41px;  
-            }
+            }             
+            @media (max-width: 1450px) {
+                min-height: 38px;
+            }    
         }
         &--special:not(:last-child) {            
             border-bottom: 1px solid $dark-color;
@@ -278,8 +294,11 @@
         }
         @media (max-width: 1800px) {
             min-height: 82px;  
-        }               
-        @media (max-width: 1024px) {
+        }      
+        @media (max-width: 1450px) {
+            min-height: 76px;
+        }     
+        @media (max-width: 1280px) {
             padding: 10px;
         }
     }
@@ -321,6 +340,7 @@
         }
         @media (max-width: 1450px) {
             font-size: 14px;
+            min-height: 42px;
         } 
     }
     &__finance-text {
@@ -347,6 +367,9 @@
             @media (max-width: 1450px) {
                 font-size: 18px;
             }
+            @media (max-width: 1280px) {
+                font-size: 16px;
+            }
         }
     }
     &__finance-item {
@@ -358,6 +381,10 @@
         width: 30px;
         height: 30px;
         position: relative;
+        @media (max-width: 1280px) {
+            width: 20px;
+            height: 20px;
+        }
     }
     &__finance-img {
         width: 100%;
@@ -375,7 +402,10 @@
         min-height: 100px;
         @media (max-width: 1800px) {
             min-height: 82px;  
-        }
+        }         
+        @media (max-width: 1450px) {
+            min-height: 76px;
+        }    
     }
     &__news {
         padding: 15px;
@@ -458,6 +488,9 @@
         min-width: 245px;
         @media (max-width: 1800px) {
             min-width: 220px;
+        }
+        @media (max-width: 1450px) {
+            min-width: 180px;
         }
     }
 }  
