@@ -1,8 +1,6 @@
 <template>
-    <article class="partnership">
-        <header-item/>
-        <sidebar-item/>
-        <div class="partnership__wrapper blur wrapper">
+    <article class="partnership blur">
+        <div class="partnership__wrapper wrapper">
             <div class="partnership__header">
                 <h2 class="partnership__title">Партнерская программа</h2>
             </div>
@@ -109,8 +107,6 @@
     import PartnershipHistoryThird from './PartnershipPageItem/PartnershipHistoryThird.vue'
     import FooterItem from '../FooterItem.vue'; 
     import { mapGetters } from 'vuex';
-    import HeaderItem from '../HeaderItem.vue';
-    import SidebarItem from '../SidebarItem.vue';
     export default {
         name: 'PartnershipPage',
         components: {
@@ -118,8 +114,6 @@
             PartnershipHistory,
             PartnershipHistorySecond,
             PartnershipHistoryThird,
-            HeaderItem,
-            SidebarItem,
             FooterItem
         },
         data() {

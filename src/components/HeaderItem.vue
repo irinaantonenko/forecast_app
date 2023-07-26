@@ -13,14 +13,12 @@
             </a>
         </div>
         <div class="header__wallet" @click="toggleBalanceWindow">
-            <img src="../assets/images/icon_1.png" alt="icon_1" width="35">
+            <span class="header__icon-wallet icon-wallet"></span>
             <span class="header__icon-arrow icon-arrow_drop_down"></span>
         </div>
         <div class="header__balance-window" v-if="isBalanceWindowOpen" ref="balanceWindow">
-            <p class="header__text">Общий баланс: <span>2537 USDT</span></p>
-            <p class="header__text">Свободный баланс: <span>800 USDT</span></p>
-            <p class="header__text">Активный баланс: <span>1700 USDT</span></p>
-            <p class="header__text">Партнерський баланс: <span>37 USDT</span></p>
+            <p class="header__balance-text">Баланс аккаунта: <span>470 USDT</span></p>
+            <p class="header__balance-text">Баланс активных средств: <span>1700 USDT</span></p>
             <span class="header__icon-close icon-close"></span>
         </div>
         <div class="header__items">
@@ -89,9 +87,10 @@
                 <div class="header__personal-circle">
                     D
                 </div>
-                <h3 class="header__personal-name">{{ CLIENT_AREA.results[0].name }}</h3>
-                <p class="header__personal-text">{{ CLIENT_AREA.results[0].phone }}</p>
-                <p class="header__personal-text header__personal-text--special">{{ CLIENT_AREA.results[0].email }}</p>
+                <h3 class="header__personal-name">Дмитрий Поташев</h3>
+                <p class="header__personal-text">id 2543378</p>
+                <p class="header__personal-text">(555) 555-1234</p>
+                <p class="header__personal-text header__personal-text--special">dmitry1984@gmail.com</p>
                 <router-link to="/profile" class="header__personal-btn btn">Личная информация</router-link>
                 <div class="header__personal-content header__personal-content--special">
                     <p class="header__personal-text"><span class="icon-wallet"></span>Баланс аккаунта</p>
@@ -101,7 +100,7 @@
                     <p class="header__personal-text"> <span class="icon-user-plus"></span>Пригласить друзей</p>
                     <router-link class="btn header__add-btn" to="/partnership">Добавить</router-link>
                 </div>
-                <button class="btn header__logout-btn" @click="logoutUser">Выход</button>
+                <a class="btn header__logout-btn" href="https://coinfuze.com/authorization">Выход</a>
             </div>
         </div>
       </div>
@@ -110,7 +109,7 @@
   
 <script>
 import SidebarItem from './SidebarItem.vue';
-import { mapActions, mapGetters } from 'vuex';
+
 export default {
   name: 'HeaderItem',
   components: {
@@ -124,16 +123,7 @@ export default {
       isPersonallWindowOpen: false
     };
   },
-  computed: {
-        ...mapGetters([
-            'CLIENT_AREA',
-        ])
-    },
   methods: {
-    ...mapActions([
-        'GET_CLIENT_AREA_FROM_API',
-        'LOGOUT_USER'
-    ]),
     toggleSidebar(event) {
       event.stopPropagation();
       this.isSidebarOpen = !this.isSidebarOpen;
@@ -211,16 +201,8 @@ export default {
       this.applyBlurEffect();
       this.applyOverflowHidden();
     },
-    async logoutUser() {
-      await this.$store.dispatch('LOGOUT_USER');
-      this.$router.push('/login');
-    },
   },
   mounted() {
-    this.GET_CLIENT_AREA_FROM_API();
-    if (this.CLIENT_AREA) {
-        console.log('Data arrived!');
-    }
     document.body.addEventListener('click', this.closeSidebar);
   },
   beforeUnmount() {
@@ -334,7 +316,7 @@ export default {
             font-size: 18px;
             cursor: pointer;
             &--mob {
-                @media (min-width: 1101px) {
+                @media (min-width: 1025px) {
                     display: none;
                 }
             }
@@ -348,7 +330,7 @@ export default {
             left: calc(50% - 10px);
             display: flex;
             align-items: center;
-            @media (min-width: 1101px) {
+            @media (min-width: 1025px) {
                 display: none;
             }
             &:hover {
@@ -434,12 +416,12 @@ export default {
             }
         }
         &__balance, &__name {
-            @media (max-width: 1100px) {
+            @media (max-width: 1024px) {
                 display: none;
             }
         }        
         &__balance-window {
-            background-color: $authorization-block;
+            background-color: $block-grey;
             position: absolute;
             top: 100%; 
             left: calc(50% - 145px);
@@ -461,7 +443,7 @@ export default {
             }
         }
         &__personal-window, &__bell-window {
-            background-color: $authorization-block;
+            background-color: $block-grey;
             position: absolute;
             top: 100%; 
             right: 50px;

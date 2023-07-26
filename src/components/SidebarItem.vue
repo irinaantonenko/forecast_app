@@ -43,12 +43,11 @@
         </li>
       </ul>
     </nav>
-    <button class="btn sidebar__btn" @click="logoutUser">Выйти с аккаунта</button>
+    <a class="btn sidebar__btn" href="https://coinfuze.com/authorization">Выйти с аккаунта</a>
   </aside>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 export default {
   beforeRouteLeave(to, from, next) {
     this.isSidebarOpen = false;
@@ -61,9 +60,6 @@ export default {
     };
   },
   methods: {
-    ...mapActions([
-      'LOGOUT_USER'
-    ]),
     isCurrentRoute(route) {
       return this.$route.path === route;
     },
@@ -93,11 +89,7 @@ export default {
       } else {
         document.body.classList.remove('hidden');
       }
-    },
-    async logoutUser() {
-      await this.$store.dispatch('LOGOUT_USER');
-      this.$router.push('/login');
-    },
+    }
   },
 };
 </script>

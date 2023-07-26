@@ -1,8 +1,6 @@
 <template>
-    <article class="withdrawal">
-        <header-item/>
-        <sidebar-item/>
-        <div class="withdrawal__wrapper blur wrapper">
+    <article class="withdrawal blur">
+        <div class="withdrawal__wrapper wrapper">
             <div class="withdrawal__header">
                 <h2 class="withdrawal__title">Вывод средств</h2>
             </div>
@@ -64,8 +62,6 @@
 <script>
     import DepositHistory from '../DepositPage/DepositPageItem/DepositHistory.vue'
     import FooterItem from '../FooterItem.vue'; 
-    import HeaderItem from '../HeaderItem.vue';
-    import SidebarItem from '../SidebarItem.vue';
     export default {
         name: 'WithdrawalPage',   
         data() {
@@ -83,9 +79,7 @@
         },
         components: {
             DepositHistory,
-            FooterItem,
-            HeaderItem,
-            SidebarItem,
+            FooterItem
         },
     }
 </script>

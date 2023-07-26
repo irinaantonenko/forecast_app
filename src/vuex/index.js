@@ -1,4 +1,5 @@
-export const BASE_API_URL = 'http://127.0.0.1:8000/api/';
+export const API_KEY = '1ada9e55428bb7900804e49efd0929a8';
+export const BASE_URL = 'https://api.openweathermap.org/data/2.5/weather';
 export const plByMonth = [
     { name: 'Jan', pl: 200, avg: 500, inc: 300 },
     { name: 'Feb', pl: 400, avg: 900, inc: 400 },

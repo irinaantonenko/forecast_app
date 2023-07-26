@@ -1,8 +1,6 @@
 <template>
-    <article class="deposit">
-        <header-item/>
-        <sidebar-item/>
-        <div class="deposit__wrapper wrapper blur">
+    <article class="deposit blur">
+        <div class="deposit__wrapper wrapper">
             <div class="deposit__header">
                 <h2 class="deposit__title">Депозит</h2>
             </div>
@@ -63,10 +61,8 @@
 <script>
     import DepositHistory from './DepositPageItem/DepositHistory.vue'
     import FooterItem from '../FooterItem.vue'; 
-    import HeaderItem from '../HeaderItem.vue';
-    import SidebarItem from '../SidebarItem.vue';
     export default {
-        name: 'DepositPage', 
+        name: 'DepositPage',   
         data() {
             return {
                 showInfo: true
@@ -93,9 +89,7 @@
         },
         components: {
             DepositHistory,
-            FooterItem,
-            HeaderItem,
-            SidebarItem,
+            FooterItem
         },
     }
 </script>

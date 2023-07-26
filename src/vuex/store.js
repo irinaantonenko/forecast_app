@@ -1,185 +1,49 @@
 import { createApp } from 'vue';
 import { createStore } from 'vuex';
-import { BASE_API_URL } from './index.js';
-import Cookies from 'js-cookie';
-import Form from 'vform'
-import router from '../router/router.js'
-
 
 const store = createStore({
     state: {
-        searchQuery: "",
-        clients: null,
-        countries: null,
-        formRegistration: new Form({
-            name: "",
-            login: "",
-            phone: "",
-            email: "",
-            password: "",
-            invitation: "",
-            country: "Country",
-          }),
-        formLogin: new Form({
-        login: "",
-        password: "",
-        }),
-        token: null,
-        headers : {
-            'Accept': '*/*',
-            'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': 'true',
-            'Access-Control-Allow-Methods': 'GET,HEAD,OPTIONS,POST,PUT',
-            // 'Access-Control-Allow-Headers': 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'
-        },
-        errorMessage: "",
-        currentURL: null,
+        carouselItems: [
+            { image: 'p1.png', image_2: 'p1_1.png', month: '2 месяца', income: '16%', percent: '35%', showInfo: true, startdate: '2023.03.28', enddate: '2023.04.29', startcapital: '300', addedcapital: '27,07', finresult: '60', profit: '600', color: '#007977'},
+            { image: 'p2.png', image_2: 'p2_2.png', month: '4 месяца', income: '32%', percent: '35%', showInfo: true, startdate: '2023.03.28', enddate: '2023.04.29', startcapital: '300', addedcapital: '27,07', finresult: '60', profit: '600' , color:'#905b83'},
+            { image: 'p3.png', image_2: 'p3_3.png', month: '6 месяцев', income: '48%', percent: '25%', showInfo: true, startdate: '2023.03.28', enddate: '2023.04.29', startcapital: '300', addedcapital: '27,07', finresult: '60', profit: '600' , color:'#a9282b'},
+            { image: 'p4.png', image_2: 'p4_4.png', month: '8 месяцев', income: '64%', percent: '25%', showInfo: true, startdate: '2023.03.28', enddate: '2023.04.29', startcapital: '300', addedcapital: '27,07', finresult: '60', profit: '600' , color:'#b17763'},
+            { image: 'p5.png', image_2: 'p5_5.png', month: '10 месяцев', income: '80%', percent: '20%', showInfo: true, startdate: '2023.03.28', enddate: '2023.04.29', startcapital: '300', addedcapital: '27,07', finresult: '60', profit: '600' , color:'#125e8a'},
+            { image: 'p6.png', image_2: 'p6_6.png', month: '12 месяцев', income: '96%', percent: '20%', showInfo: true, startdate: '2023.03.28', enddate: '2023.04.29', startcapital: '300', addedcapital: '27,07', finresult: '60', profit: '600' , color:'#5a1e61'},
+        ],
+        searchQuery: '',
+        //activeItems: [],
+        showError: false
     },
     mutations: {
         SET_SEARCH_QUERY: (state, value) => {
             state.searchQuery = value;
         },
-        SET_CLIENT_AREA_TO_STATE: (state, clients) => {
-            state.clients = clients;
-        },
-        SET_COUNTRIES: (state, countries) => {
-            state.countries = countries;
-        },
-        SET_FORM_REGISTER: (state, formRegistration) => {
-            state.formRegistration = formRegistration;
-        },
-        SET_FORM_LOGIN: (state, formLogin) => {
-            state.formLogin = formLogin;
-        },
-        SET_TOKEN(state, token) {
-            state.token = token;
-            state.headers['TOKEN'] = token; // Set the token inside headers object
-            Cookies.set('token', token);
-        },
-        SET_HEADERS(state, headers) {
-            state.headers = headers;
-        },
-        SET_ERROR(state, errorMessage) {
-            state.errorMessage=errorMessage;
-        },
-        SET_CURRENT_URL(state, url) {
-            state.currentURL = url;
+        // SET_ACTIVE_ITEMS(state, item) {
+        //     state.activeItems.push(item);
+        // },
+        SET_CAROUSEL_ITEMS_TO_STATE: (state, carouselItems) => {
+            state.carouselItems = carouselItems;
         },
     },
     actions: {
         GET_SEARCH_QUERY({commit}, value) {
             commit('SET_SEARCH_QUERY', value);
         },
-        GET_HEADERS: ({commit}, headers) => {
-            commit('SET_HEADERS', headers);
-            //Cookies.set('headers', headers);
-        },
-        GET_TOKEN: ({commit}, token) => {
-            commit('SET_TOKEN', token);
-        },
-        GET_ERROR: ({commit}, errorMessage) => {
-            commit('SET_ERROR', errorMessage)
-        },
-        async GET_CLIENT_AREA_FROM_API({commit, state}) {
-            try {    
-                let headers = state.headers;
-                const response = await fetch(`${BASE_API_URL}ca_clients/`, {headers});
-                if (response.status === 200) {
-                    const clients = await response.json();
-                    commit('SET_CLIENT_AREA_TO_STATE', clients);
-                console.log('client area data', clients)
-                return clients; 
-                } else {
-                    if(response.status === 403) {
-                        console.log('')
-                    }
-                    await this.dispatch('LOGOUT_USER'); 
-                    router.push('/login'); 
-                    return null; 
-                }
-            } catch (error) {
-                //console.error('cach error',error); 
-            }
-        },
-        async GET_COUNTRIES({ commit }) {
-            try {
-                const headers = { 'Content-Type': 'multipart/form-data' };
-                const response = await fetch(`${BASE_API_URL}ca_registration/`, {headers});
-                const countries = await response.json();
-                commit('SET_COUNTRIES', countries);
-                return countries;
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        async LOGOUT_USER({ commit, state }) {
-            try {
-                const headers = state.headers;
-                const response = await fetch(`${BASE_API_URL}ca_logout/`, { headers, method: 'GET' });
-                if (response.ok) {
-                    commit('SET_TOKEN', null);
-                    Cookies.remove('token');
-                }
-            } catch (error) {
-                console.error('Logout error:', error);
-            }
-        },
-        GET_CURRENT_URL({ commit }, url) {
-            commit('SET_CURRENT_URL', url);
-        },
-        async EMAIL_INVITATION({state}) {
-            try {
-                const headers = state.headers;
-                const response = await fetch(`${BASE_API_URL}email_verify/`, { headers, method: 'GET' });
-                if (response.ok) {
-                   console.log(response.ok)
-                }
-            } catch (error) {
-                console.error('error:', error);
-            }
-        },
-        async EMAIL_ACTIVATION({state }) {
-            try {
-                const headers = state.headers;
-                const currentURL = state.currentURL;
-                const response = await fetch(`${BASE_API_URL}${currentURL}`, { headers, method: 'GET' });
-                if (response.ok) {
-                   console.log(response.ok)
-                }
-            } catch (error) {
-                console.error('error:', error);
-            }
-        },
+        // ADD_TO_ACTIVE_ITEMS({commit}, item) {
+        //     commit('SET_ACTIVE_ITEMS', item)
+        // }
     },
     getters: {
+        CAROUSEL_ITEMS(state) {
+            return state.carouselItems;
+        },
         SEARCH_QUERY(state) {
             return state.searchQuery;
         },
-        CLIENT_AREA(state) {
-            return state.clients;
-        },
-        HEADERS(state) {
-            return state.headers;
-        },
-        COUNTRIES(state) {
-            return state.countries;
-        },
-        FORM_REGISTRATION(state) {
-            return state.formRegistration;
-        },
-        FORM_LOGIN(state) {
-            return state.formLogin;
-        },
-        TOKEN(state) {
-            return state.token;
-        },
-        ERROR_MESSAGE(state) {
-            return state.errorMessage;
-        },
-        CURRENT_URL(state) {
-            return state.currentURL;
-        }
+        // ACTIVE_ITEMS(state) {
+        //     return state.activeItems;
+        // }
     }
 });
 

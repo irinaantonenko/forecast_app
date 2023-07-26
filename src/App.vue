@@ -1,18 +1,18 @@
 <template>
-  <!-- <header-item/>
-  <sidebar-item/>   -->
+  <header-item/>
+  <sidebar-item/>  
   <main-wrapper/>  
 </template>
 
 <script>
-  // import HeaderItem from './components/HeaderItem.vue';
-  // import SidebarItem from './components/SidebarItem.vue';
+  import HeaderItem from './components/HeaderItem.vue';
+  import SidebarItem from './components/SidebarItem.vue';
   import MainWrapper from './components/MainWrapper.vue';
   export default {
     name: 'App',
     components: {
-      // HeaderItem,
-      // SidebarItem,
+      HeaderItem,
+      SidebarItem,
       MainWrapper
     },
     data() {
