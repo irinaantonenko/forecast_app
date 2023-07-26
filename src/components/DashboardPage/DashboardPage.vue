@@ -1,11 +1,13 @@
 <template>
-    <article class="dashboard blur">
-        <div class="dashboard__wrapper wrapper">
+    <article class="dashboard">
+        <header-item/>
+        <sidebar-item/>
+        <div class="dashboard__wrapper blur wrapper">
             <div class="dashboard__header">
                 <h2 class="dashboard__title">Панель управления</h2>
                 <!-- <p class="dashboard__time">Последний вход: 13.05.2022</p> -->
             </div>
-            <div class="dashboard__info" v-if="showInfo">
+            <div class="dashboard__info" v-if="CLIENT_AREA && CLIENT_AREA.results && CLIENT_AREA.results[0].email_verify === false">
                 <div class="dashboard__info-content">
                     <span class="icon-info dashboard__icon-info"></span>
                     <div class="dashboard__info-wrap">
@@ -13,7 +15,7 @@
                         <p class="dashboard__info-text">Перед инвестированием необходимо завершить процесс регистрации, заполнив свои личные данные.</p>
                     </div>                
                 </div>
-                <button class="btn dashboard__info-btn" @click="hideInfo">Завершить регистрацию</button>
+                <button class="btn dashboard__info-btn" @click="completeRegistration">Завершить регистрацию</button>
             </div>
             <div class="dashboard__items">
                 <div class="dashboard__item">
@@ -166,8 +168,11 @@
   </template>
   
 <script>
+    import {mapActions, mapGetters} from 'vuex'
     import FooterItem from '../FooterItem.vue';
     import LineChart from '../LineChart.vue'
+    import HeaderItem from '../HeaderItem.vue';
+    import SidebarItem from '../SidebarItem.vue';
     export default {
         name: 'DashboardPage',   
         data() {
@@ -177,11 +182,36 @@
         },
         components: {
             FooterItem,
-            LineChart
+            LineChart,
+            HeaderItem,
+            SidebarItem,
+        },
+        computed: {
+            ...mapGetters([
+                'CLIENT_AREA',
+            ])
         },
         methods: {
-            hideInfo() {
-                this.showInfo = false;
+            ...mapActions([
+                'GET_CLIENT_AREA_FROM_API',
+                'EMAIL_INVITATION'
+            ]),
+            completeRegistration() {
+                this.EMAIL_INVITATION()
+                .then(() => {
+                // Handle the response from the API if needed
+                console.log('API Response:');
+                })
+                .catch((error) => {
+                // Handle API request error
+                console.error('API Error:', error);
+                });
+            }
+        },
+        async mounted() {
+            await this.GET_CLIENT_AREA_FROM_API();
+            if (this.CLIENT_AREA) {
+                console.log('Data arrived!');
             }
         }
     };    

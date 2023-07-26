@@ -1,6 +1,8 @@
 <template>
-    <article class="plans blur">
-        <div class="plans__wrapper wrapper">
+    <article class="plans">
+        <header-item/>
+        <sidebar-item/>
+        <div class="plans__wrapper blur wrapper">
             <div class="plans__header">
                 <h2 class="plans__title">Управление планами</h2>
             </div>
@@ -34,12 +36,16 @@
     import FooterItem from '../FooterItem.vue'; 
     import PlansCarousel from './PlansPageItem/PlansCarousel';
     import PlansHistory from './PlansPageItem/PlansHistory.vue';
+    import HeaderItem from '../HeaderItem.vue';
+    import SidebarItem from '../SidebarItem.vue';
     export default {
         name: 'PlansPage',
         components: {
             FooterItem,
             PlansCarousel,
-            PlansHistory
+            PlansHistory,
+            HeaderItem,
+            SidebarItem,
         }
     }
 </script>

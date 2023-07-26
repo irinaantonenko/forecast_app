@@ -7,6 +7,9 @@ import NewsPage from '../components/NewsPage/NewsPage.vue'
 import ProfilePage from '../components/ProfilePage/ProfilePage.vue'
 import PlansPage from '../components/PlansPage/PlansPage.vue'
 import WithdrawalPage from '../components/WithdrawalPage/WithdrawalPage.vue'
+import AuthorizationPage from '../components/AuthorizationPage.vue'
+import NotFound from '../components/NotFound.vue'
+import EmailActivation from '../components/EmailActivation.vue'
 
 const router = createRouter ({
     history: createWebHistory(),
@@ -48,9 +51,30 @@ const router = createRouter ({
             path:'/withdrawal',
             name: 'withdrawal',
             component: WithdrawalPage
-        }
+        },
+        {
+            path:'/login',
+            name: 'login',
+            component: AuthorizationPage
+        },
+        {
+            path: '/email_activation/:catchAll(.*)',
+            name: 'email_activation',
+            component: EmailActivation
+        },
+        {
+            path: '/:catchAll(.*)',
+            name: 'not-found',
+            component: NotFound
+        },
     ]
-})
+});
+    router.beforeEach((to, from, next) => {
+        if (to.name === 'not-found') {
+            console.log(`Route not found: ${to.path}`);
+        }
+        next();
+    });
 
 export default router;
 const app = createApp({})

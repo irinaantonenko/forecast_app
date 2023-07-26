@@ -2,19 +2,18 @@
     <div class="popup__wrapper" ref="popup_wrapper">
         <div class="popup" id="myModal">            
             <div class="popup__header">
-                <h3 class="popup__title">Активировать инвестиционный план?</h3>
+                <h3 class="popup__title">{{ ERROR_MESSAGE }}</h3>
                 <span class="icon-close popup__icon" @click="closePopup"></span>
             </div>
             <div class="popup__content">
-                <button @click="activateItem(index)">Да</button>
-                <button @click="closePopup">Нет</button>
+              <button class="btn" @click="closePopup">Ок</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 export default {
   name: 'PopupItem',
   data() {
@@ -23,17 +22,14 @@ export default {
       popupLeft: 0,
     };
   },
+  computed: {
+    ...mapGetters([
+      'ERROR_MESSAGE'
+    ]),
+  },
   methods: {
     closePopup() {
       this.$emit('closePopup');
-    },
-    activateItem(index) {
-      this.$emit('activateItem', index);
-    },
-    openPopup(event) {
-      this.popupTop = event.clientY + 'px';
-      this.popupLeft = event.clientX + 'px';
-      document.body.classList.add('modal-open');
     },
   },
   mounted() {
@@ -54,7 +50,7 @@ export default {
         width: 545px;
         box-shadow: 0 0 16px 0 $shadow-popup;
         z-index: 1000;
-        background-color: $green;
+        background-color: $authorization-block;
         border-radius: 10px;
         @media (max-width: 700px) {
             width: 90%;
@@ -112,8 +108,9 @@ export default {
         }
     }
     .modal-open {
-        width: 100%;
-        height: 100%;
-        overflow-y: hidden;
-    }    
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+    }   
 </style>
